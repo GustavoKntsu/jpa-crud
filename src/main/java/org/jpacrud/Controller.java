@@ -6,9 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.model.Produto; // Certifique-se que o pacote do Model está correto
+import org.dao.ProdutoDAO;
+import org.model.Produto;
 
-public class HelloController {
+public class Controller {
 
     // --- Vínculos com a Tela (FXML) ---
     @FXML private TextField tfId;
@@ -25,6 +26,8 @@ public class HelloController {
 
     // Lista que conecta os dados à tabela
     private ObservableList<Produto> listaDeProdutos;
+
+    private ProdutoDAO dao = new ProdutoDAO();
 
     // --- Método de Inicialização (Roda ao abrir a tela) ---
     @FXML
@@ -132,4 +135,6 @@ public class HelloController {
         alert.setContentText(mensagem);
         alert.showAndWait();
     }
+
+
 }
