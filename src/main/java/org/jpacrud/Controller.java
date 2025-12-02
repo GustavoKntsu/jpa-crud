@@ -4,10 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.dao.ProdutoDAO;
 import org.model.Produto;
+import org.util.CsvUtil;
+
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -42,7 +48,7 @@ public class Controller {
         listaDeProdutos = FXCollections.observableArrayList();
         tabelaProdutos.setItems(listaDeProdutos);
 
-        // 3. (Opcional) Preencher os campos ao clicar em uma linha da tabela
+        // 3. (Opcional) Preencher os campos ao clicar numa linha da tabela
         tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 preencherCampos(newSelection);
@@ -60,18 +66,23 @@ public class Controller {
             double preco = Double.parseDouble(tfPreco.getText());
             int qtd = Integer.parseInt(tfQuantidade.getText());
 
-            // Cria novo produto (Simulando ID aleatório por enquanto)
-            Long idSimulado = System.currentTimeMillis();
-            Produto novoProduto = new Produto(idSimulado, nome, preco, qtd);
+            // Cria novo produto (Simulando ID aleatório)
+            Produto novoProduto = new Produto(null, nome, preco, qtd);
+            dao.cadastrar(novoProduto); // O ‘ID’ é gerado aqui pelo Banco aleatóriamente
 
             // Adiciona na lista (A tabela atualiza sozinha)
             listaDeProdutos.add(novoProduto);
 
+            // Salva a lista atualizada no CSV
+            CsvUtil.salvarCsv(new ArrayList<>(listaDeProdutos));
+
             // TODO: Aqui entraria o código JPA: dao.salvar(novoProduto);
 
             limparCampos();
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Erro", "Preço e Quantidade devem ser números!");
+        } catch (Exception e) {
+            e.printStackTrace(); // ←-- O COMANDO MÁGICO QUE MOSTRA O ERRO VERMELHO NO CONSOLE
+
+            mostrarAlerta("Erro Crítico", "Ocorreu um erro: " + e.getMessage());
         }
     }
 
@@ -85,8 +96,14 @@ public class Controller {
             produtoSelecionado.setPreco(Double.parseDouble(tfPreco.getText()));
             produtoSelecionado.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
 
+            // Atualiza no banco de Dados
+            dao.atualizar(produtoSelecionado);
+
             // Força a tabela a atualizar visualmente
             tabelaProdutos.refresh();
+
+            // Salva a lista atualizada no CSV
+            CsvUtil.salvarCsv(new ArrayList<>(listaDeProdutos));
 
             // TODO: Aqui entraria o código JPA: dao.atualizar(produtoSelecionado);
 
@@ -102,6 +119,10 @@ public class Controller {
 
         if (produtoSelecionado != null) {
             listaDeProdutos.remove(produtoSelecionado);
+
+            dao.remover(produtoSelecionado);
+            // Exclui a lista atualizada no CSV
+            CsvUtil.salvarCsv(new ArrayList<>(listaDeProdutos));
 
             // TODO: Aqui entraria o código JPA: dao.remover(produtoSelecionado);
 
