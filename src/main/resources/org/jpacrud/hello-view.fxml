@@ -1,16 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.jpacrud.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jpacrud.HelloController">
+    <children>
+        <SplitPane dividerPositions="0.35" layoutX="200.0" layoutY="100.0" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <Label layoutX="20.0" layoutY="20.0" text="Entrada de Dados">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+                        <Label layoutX="20.0" layoutY="70.0" text="ID:" />
+                        <TextField fx:id="tfId" disable="true" layoutX="20.0" layoutY="90.0" prefWidth="250.0" promptText="Gerado Automaticamente" />
+
+                        <Label layoutX="20.0" layoutY="130.0" text="Nome:" />
+                        <TextField fx:id="tfNome" layoutX="20.0" layoutY="150.0" prefWidth="250.0" promptText="Nome do produto" />
+
+                        <Label layoutX="20.0" layoutY="190.0" text="Preço:" />
+                        <TextField fx:id="tfPreco" layoutX="20.0" layoutY="210.0" prefWidth="250.0" promptText="0.00" />
+
+                        <Label layoutX="20.0" layoutY="250.0" text="Quantidade:" />
+                        <TextField fx:id="tfQuantidade" layoutX="20.0" layoutY="270.0" prefWidth="250.0" promptText="0" />
+
+                        <HBox alignment="CENTER" layoutX="15.0" layoutY="330.0" spacing="10.0">
+                            <children>
+                                <Button fx:id="btnAdicionar" mnemonicParsing="false" onAction="#onAdicionar" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Adicionar" />
+                                <Button fx:id="btnAtualizar" mnemonicParsing="false" onAction="#onAtualizar" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Atualizar" />
+                                <Button fx:id="btnExcluir" mnemonicParsing="false" onAction="#onExcluir" style="-fx-background-color: #F44336; -fx-text-fill: white;" text="Excluir" />
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <TableView fx:id="tabelaProdutos" prefHeight="598.0" prefWidth="581.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="colunaId" prefWidth="50.0" text="ID" />
+                                <TableColumn fx:id="colunaNome" prefWidth="200.0" text="Nome" />
+                                <TableColumn fx:id="colunaPreco" prefWidth="100.0" text="Preço" />
+                                <TableColumn fx:id="colunaQuantidade" prefWidth="100.0" text="Qtd" />
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

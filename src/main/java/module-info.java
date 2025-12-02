@@ -6,6 +6,7 @@ module org.jpacrud {
 
     // Adicionado para o Hibernate:
     requires org.hibernate.orm.core;
+    requires jdk.compiler;
 
     // Permite o Hibernate ler o pacote 'org.model' onde está o 'Usuario'
     opens org.model to org.hibernate.orm.core;
