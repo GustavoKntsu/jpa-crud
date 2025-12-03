@@ -33,6 +33,7 @@
                                 <Button fx:id="btnAdicionar" mnemonicParsing="false" onAction="#onAdicionar" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Adicionar" />
                                 <Button fx:id="btnAtualizar" mnemonicParsing="false" onAction="#onAtualizar" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Atualizar" />
                                 <Button fx:id="btnExcluir" mnemonicParsing="false" onAction="#onExcluir" style="-fx-background-color: #F44336; -fx-text-fill: white;" text="Excluir" />
+                                <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#onLimpar" style="-fx-background-color: #757575; -fx-text-fill: white;" text="Limpar" />
                             </children>
                         </HBox>
                     </children>

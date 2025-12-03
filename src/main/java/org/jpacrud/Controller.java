@@ -132,6 +132,12 @@ public class Controller {
         }
     }
 
+    @FXML
+    void onLimpar(ActionEvent event) {
+        // Faz uma faxina nos campos
+        limparCampos();
+    }
+
     // --- Métodos Auxiliares ---
 
     private void limparCampos() {
