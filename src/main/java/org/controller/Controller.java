@@ -1,4 +1,4 @@
-package org.jpacrud;
+package org.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,8 +44,10 @@ public class Controller {
         colunaPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
         colunaQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
 
+        java.util.List<Produto> dadosDoBanco = dao.listarTodos();
+
         // 2. Inicializar a lista e ligar na tabela
-        listaDeProdutos = FXCollections.observableArrayList();
+        listaDeProdutos = FXCollections.observableArrayList(dadosDoBanco);
         tabelaProdutos.setItems(listaDeProdutos);
 
         // 3. (Opcional) Preencher os campos ao clicar numa linha da tabela

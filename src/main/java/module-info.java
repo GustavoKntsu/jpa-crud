@@ -12,4 +12,6 @@ module org.jpacrud {
     opens org.model to javafx.base, org.hibernate.orm.core;
     opens org.jpacrud to javafx.fxml;
     exports org.jpacrud;
+    exports org.controller;
+    opens org.controller to javafx.fxml;
 }
